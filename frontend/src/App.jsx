@@ -113,6 +113,14 @@ export default function App() {
         stagger: 0.12,
         delay: 0.4,
       });
+      gsap.from(".js-section", {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
+        delay: 0.45,
+      });
     });
 
     return () => ctx.revert();
@@ -191,9 +199,11 @@ export default function App() {
               </h1>
             </div>
 
-            <div className="js-hero-copy max-w-sm text-sm text-white/80 md:text-base">
-              Experience padel like never before with friendly matches,
-              skill-building sessions, and a community that feels like family.
+            <div className="js-hero-copy inline-flex w-fit max-w-md items-center text-sm text-white/95 md:text-base">
+              <span className="rounded-2xl bg-black/30 p-2 drop-shadow backdrop-blur-sm">
+                Experience padel like never before with friendly matches,
+                skill-building sessions, and a community that feels like family.
+              </span>
               <div className="js-hero-actions mt-6 flex flex-wrap items-center gap-3">
                 <button className="rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink shadow-glow transition hover:-translate-y-0.5 hover:bg-white">
                   Join the group
@@ -497,7 +507,7 @@ export default function App() {
           className="js-section mt-16 overflow-hidden rounded-[32px] border border-ink/10 bg-cover bg-center text-white shadow-xl"
           style={{
             backgroundImage:
-              "linear-gradient(90deg, rgba(10,16,20,0.78) 0%, rgba(10,16,20,0.35) 55%, rgba(10,16,20,0.08) 100%), url(https://i.pinimg.com/736x/b3/1d/8e/b31d8e2ff106ab886723c152f4be70fd.jpg)",
+              "linear-gradient(90deg, rgba(10,16,20,0.78) 0%, rgba(10,16,20,0.35) 55%, rgba(10,16,20,0.08) 100%), url(https://i.pinimg.com/1200x/1f/12/25/1f122514d6934824fed38fa750ad8cb4.jpg)",
           }}
         >
           <div className="flex min-h-[320px] flex-col justify-center px-8 py-12 md:min-h-[360px] md:px-12">
