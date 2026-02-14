@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 
 const navLinks = [
@@ -75,6 +75,8 @@ const aboutImage =
   "https://i.pinimg.com/736x/64/ad/df/64addfcc23cf27b52e9dd550d087dfd4.jpg";
 
 export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".js-nav", {
@@ -137,7 +139,25 @@ export default function App() {
       >
         <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-5 pb-10 pt-8 md:px-8 lg:px-10">
           <nav className="js-nav flex flex-wrap items-center justify-between gap-4 text-xs uppercase tracking-[0.2em] text-white/80">
-            <div className="flex items-center gap-6">
+            <div className="flex w-full items-center justify-between md:w-auto">
+              <div className="flex items-center gap-2 font-display text-base tracking-normal text-white">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15 text-sm">
+                  P
+                </span>
+                Padelo
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+                className="inline-flex h-10 min-w-[4.5rem] items-center justify-center rounded-full border border-white/40 px-3 text-white transition hover:border-lime hover:text-lime md:hidden"
+                aria-expanded={isMenuOpen}
+                aria-label="Toggle navigation"
+              >
+                {isMenuOpen ? "Close" : "Menu"}
+              </button>
+            </div>
+
+            <div className="hidden items-center gap-6 md:flex">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
@@ -148,18 +168,40 @@ export default function App() {
                 </a>
               ))}
             </div>
-            <div className="flex items-center gap-2 font-display text-base tracking-normal text-white">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15 text-sm">
-                P
-              </span>
-              Padelo
-            </div>
-            <button className="rounded-full border border-white/50 px-4 py-2 text-[11px] font-semibold tracking-[0.25em] text-white transition hover:border-lime hover:text-lime">
+            <button className="hidden rounded-full border border-white/50 px-4 py-2 text-[11px] font-semibold tracking-[0.25em] text-white transition hover:border-lime hover:text-lime md:inline-flex">
               Join now
             </button>
+
+            <div
+              className={`w-full overflow-hidden transition-all duration-300 md:hidden ${
+                isMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-2 rounded-2xl border border-white/20 bg-black/30 p-4 backdrop-blur-sm">
+                <div className="flex flex-col gap-3">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="rounded-lg px-2 py-1 transition hover:bg-white/10 hover:text-white"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                  <button
+                    type="button"
+                    className="mt-2 rounded-full border border-white/50 px-4 py-2 text-[11px] font-semibold tracking-[0.25em] text-white transition hover:border-lime hover:text-lime"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Join now
+                  </button>
+                </div>
+              </div>
+            </div>
           </nav>
 
-          <div className="mt-10 flex flex-1 flex-col justify-end gap-6 lg:flex-row lg:items-end lg:gap-10">
+          <div className="mt-10 flex flex-1 flex-col justify-end gap-8 lg:flex-row lg:items-end lg:gap-10">
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4 text-sm text-white/80">
                 <div className="flex -space-x-3">
@@ -199,16 +241,16 @@ export default function App() {
               </h1>
             </div>
 
-            <div className="js-hero-copy inline-flex w-fit max-w-md items-center text-sm text-white/95 md:text-base">
-              <span className="rounded-2xl bg-black/30 p-2 drop-shadow backdrop-blur-sm">
+            <div className="js-hero-copy w-full max-w-md text-sm text-white/95 md:text-base">
+              <p className="rounded-2xl bg-black/30 p-3 drop-shadow backdrop-blur-sm">
                 Experience padel like never before with friendly matches,
                 skill-building sessions, and a community that feels like family.
-              </span>
-              <div className="js-hero-actions mt-6 flex flex-wrap items-center gap-3">
-                <button className="rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink shadow-glow transition hover:-translate-y-0.5 hover:bg-white">
+              </p>
+              <div className="js-hero-actions mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <button className="w-full rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink shadow-glow transition hover:-translate-y-0.5 hover:bg-white sm:w-auto">
                   Join the group
                 </button>
-                <button className="rounded-full border border-white/50 px-5 py-2.5 text-sm font-semibold text-white/90 transition hover:border-lime hover:text-lime">
+                <button className="w-full rounded-full border border-white/50 px-5 py-2.5 text-sm font-semibold text-white/90 transition hover:border-lime hover:text-lime sm:w-auto">
                   Learn more
                 </button>
               </div>
@@ -369,12 +411,12 @@ export default function App() {
                   Explore Our Facilities
                 </h2>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-2 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink/60">
+              <div className="flex w-full flex-wrap items-center gap-3 sm:w-auto">
+                <div className="flex w-full items-center justify-between gap-2 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink/60 sm:w-auto">
                   <span>Search here...</span>
                   <span className="text-ink/40">⌕</span>
                 </div>
-                <button className="rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-ink/90">
+                <button className="w-full rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-ink/90 sm:w-auto">
                   View all
                 </button>
               </div>
@@ -437,7 +479,7 @@ export default function App() {
                   &gt;
                 </button>
               </div>
-              <p>
+              <p className="max-w-3xl leading-relaxed">
                 Book a court or training, friendly matches, or private coaching
                 and discover a new level of padel in a welcoming atmosphere.
               </p>
@@ -504,13 +546,13 @@ export default function App() {
         </section>
 
         <section
-          className="js-section mt-16 overflow-hidden rounded-[32px] border border-ink/10 bg-cover bg-center text-white shadow-xl"
+          className="js-section mt-16 overflow-hidden rounded-[28px] border border-ink/10 bg-cover bg-center text-white shadow-xl md:rounded-[32px]"
           style={{
             backgroundImage:
               "linear-gradient(90deg, rgba(10,16,20,0.78) 0%, rgba(10,16,20,0.35) 55%, rgba(10,16,20,0.08) 100%), url(https://i.pinimg.com/1200x/1f/12/25/1f122514d6934824fed38fa750ad8cb4.jpg)",
           }}
         >
-          <div className="flex min-h-[320px] flex-col justify-center px-8 py-12 md:min-h-[360px] md:px-12">
+          <div className="flex min-h-[320px] flex-col justify-center px-5 py-12 sm:px-8 md:min-h-[360px] md:px-12">
             <h2 className="text-balance font-display text-3xl md:text-4xl">
               Ready to play with us?
             </h2>
@@ -519,7 +561,7 @@ export default function App() {
               sessions, and a community that feels like family.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4">
-              <button className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-lime">
+              <button className="w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-lime sm:w-auto">
                 Join the group
               </button>
             </div>
